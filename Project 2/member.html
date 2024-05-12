@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>La Bascarsija</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="bg-image">
+        <div class="container">
+            <div class="row">
+                <div class="col-2"></div>
+                <div class="col-8 mt-5 text-center" id="form">
+                    <form id="contactForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName" style="color: white;">First Name</label>
+                                <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First name" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName"style="color: white;">Last Name</label>
+                                <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last name" required />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="password"style="color: white;">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Password" required />
+                        </div>
+                        <div class="form-group"style="color: white;">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Email" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="phone"style="color: white;">Phone</label>
+                            <input type="tel" class="form-control" id="phone" name="phone" placeholder="Phone" />
+                        </div>
+                        <div class="form-group">
+                            <label for="address"style="color: white;">Address</label>
+                            <input type="text" class="form-control" id="address" name="address" placeholder="Address" />
+                        </div>
+                        <div class="form-group">
+                            <label for="nation"style="color: white;">Nation</label>
+                            <input type="text" class="form-control" id="nation" name="nation" placeholder="Nation" />
+                        </div>
+                        <div class="form-group">
+                            <label for="birthdate"style="color: white;">Date of Birth</label>
+                            <input type="date" class="form-control" id="birthdate" name="birthdate" placeholder="Date of Birth" />
+                        </div>
+                        <div class="form-group">
+                            <label for="passwordStrength"style="color: white;">Password Strength</label>
+                            <meter max="4" id="passwordStrength" value="0"></meter>
+                        </div>
+                        <button type="submit" class="btn btn-dark">Next</button>
+                    </form>
+                </div>
+                <div class="col-2"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- jQuery Validation Plugin -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#contactForm').validate({
+                rules: {
+                    firstName: 'required',
+                    lastName: 'required',
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                    password: {
+                        required: true,
+                        minlength: 8
+                    },
+                    phone: {
+                        phoneUS: true
+                    },
+                    birthdate: {
+                        required: true,
+                        date: true
+                    }
+                },
+                messages: {
+                    firstName: 'Please enter your first name',
+                    lastName: 'Please enter your last name',
+                    email: 'Please enter a valid email address',
+                    password: {
+                        required: 'Please provide a password',
+                        minlength: 'Your password must be at least 8 characters long'
+                    },
+                    birthdate: 'Please enter your date of birth in mm/dd/yyyy format'
+                },
+                submitHandler: function (form) {
+                    // Handle form submission here
+                    form.submit();
+                }
+            });
+
+            $('#password').on('keyup', function () {
+                var strength = 0;
+                var password = $(this).val();
+                var meter = $('#passwordStrength');
+                var regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+                if (regex.test(password)) {
+                    strength += 1;
+                }
+
+                if (password.length > 7) {
+                    strength += 1;
+                }
+
+                if (password.length > 12) {
+                    strength += 1;
+                }
+
+                meter.val(strength);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -11027,3 +11027,50 @@ p {
 .address strong {
   font-size: 1.2rem;
 }
+
+#slika1{
+  cursor: pointer;
+  transition: 1s ease;
+}
+
+#slika1:hover{
+  transform: scale(0.8);
+  box-shadow: 0 32px 75px rgba(68, 77, 136, 0.2);
+}
+
+#naslov{
+  cursor: pointer;
+  transition: 1s ease-in-out;
+}
+
+#naslov:hover{
+  transform: scale(0.8);
+}
+
+.imageWrapper{
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.9);
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+.imageWrapper img{
+  width: 90%;
+  max-width: 500px;
+}
+
+.imageWrapper span{
+  position: absolute;
+  top: 5%;
+  right: 5%;
+  font-size: 30px;
+  color: #fff;
+  cursor: pointer;
+  font-family: sans-serif;
+}
