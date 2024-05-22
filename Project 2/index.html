@@ -25,6 +25,26 @@
             <img src="assets/img/konobar1.jpg" alt="" id="fullImg">
             <span>X</span>
         </div>
+        <script>let images = document.querySelectorAll('img')
+            let wrapper = document.getElementById('wrapper')
+            let imgWrapper = document.getElementById('fullImg')
+            let close = document.querySelector('span')
+            console.log(images);
+            console.log(wrapper);
+            console.log(imgWrapper);
+            console.log(close);
+            
+            images.forEach((img, index) => {
+                img.addEventListener('click',()=>{
+                    openModal(assets/img$(index).jpg)
+                })
+            })
+            
+            
+            function openModal(pic){
+                wrapper.style.display = "flex";
+                imgWrapper.src = pic;
+            }</script>
         <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
             <div class="container">
                 <a class="navbar-brand text-uppercase fw-bold d-lg-none" href="index.html">La Bascarsija</a>
@@ -35,6 +55,33 @@
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="about.html">About Us</a></li>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="products.html">Products</a></li>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="store.html">Store</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" id="themeSwitch" href="#">Switch Theme</a></li>
+                        
+    <script>
+            let darkMode = false;
+            function toggleTheme() {
+            const body = document.body;
+            const navLink = document.getElementById('themeSwitch');
+    
+            darkMode = !darkMode;
+    
+        if (darkMode) {
+            body.style.backgroundColor = '#857671';
+            body.style.color = '#b88645';
+            navLink.style.color = '#857671';
+        } else {
+            body.style.backgroundColor = '#857671';
+            body.style.color = '#333';
+            navLink.style.color = '#857671'; // Adjust link color in light theme
+        }
+    }
+
+        document.getElementById('themeSwitch').addEventListener('click', function(event) {
+        event.preventDefault();
+        toggleTheme();
+        });
+    </script>
+                        
                     </ul>
                 </div>
             </div>
@@ -59,6 +106,7 @@
                 <div class="row">
                     <div class="col-xl-9 mx-auto">
                         <div class="cta-inner bg-faded text-center rounded">
+                            
                             <h2 class="section-heading mb-4">
                                 <span class="section-heading-upper">Our Promise</span>
                                 <span class="section-heading-lower">To You</span>

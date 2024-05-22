@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>La Bascarsija</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet" />
+</head>
+
+<button id="openPopupBtn" class="popupBtn">Read more...</button>
+
+                        <div id="popupContainer" class="popup-container">
+                            <h2>Popup Title</h2>
+                            <img src="assets/img/1131w-7-tx2mXc9-o.webp" alt="">
+                            <button id="closePopupBtn">Close Popup</button>
+                        </div>
+                    
+                        <div id="overlay" class="overlay"></div>
+                    </div>
+                    
+                    <script> document.addEventListener('DOMContentLoaded', function() {
+const openPopupBtn = document.getElementById('openPopupBtn');
+const closePopupBtn = document.getElementById('closePopupBtn');
+const popupContainer = document.getElementById('popupContainer');
+const overlay = document.getElementById('overlay');
+
+openPopupBtn.addEventListener('click', function() {
+popupContainer.classList.add('show');
+overlay.classList.add('show');
+});
+
+closePopupBtn.addEventListener('click', function() {
+popupContainer.classList.remove('show');
+overlay.classList.remove('show');
+});
+
+overlay.addEventListener('click', function() {
+popupContainer.classList.remove('show');
+overlay.classList.remove('show');
+});
+});</script>
+                   
+
+<style>#openPopupBtn{
+background-color: #d14149;
+color: white;
+padding: 10px;
+border: none;
+}
+
+.popup-container {
+display: none;
+position: fixed;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+width: auto;
+max-width: 90%;
+padding: 20px;
+background-color: #fff;
+border: 1px solid #0b0a0a;
+color: black;
+box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+z-index: 1000;
+}
+
+.overlay {
+display: none;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0, 0, 0, 0.5);
+z-index: 900;
+}
+
+.popup-container.show {
+display: block;
+}
+
+.overlay.show {
+display: block;
+}</style>
+
+
+</body>
+</html>

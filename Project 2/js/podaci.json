@@ -1,10 +1,10 @@
-const person{
+{
     "name": "Timur",
     "surname": "Puzo",
     "password": "Fakultet123",
     "email": "timur.puzo@stu.ibu.edu.ba",
-    "phone": 061 314 464,
+    "phone": "061 314 464",
     "address": "Neka ulica",
     "nation": "Bosnia and Herzegovina",
-    "dateOfBirth": "19/05/2004" 
+    "dateOfBirth": "19/05/2004"
 }

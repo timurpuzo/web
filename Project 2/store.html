@@ -31,6 +31,32 @@
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="about.html">About Us</a></li>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="products.html">Products</a></li>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="store.html">Store</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" id="themeSwitch" href="#">Switch Theme</a></li>
+                        
+    <script>
+            let darkMode = false;
+            function toggleTheme() {
+            const body = document.body;
+            const navLink = document.getElementById('themeSwitch');
+    
+            darkMode = !darkMode;
+    
+        if (darkMode) {
+            body.style.backgroundColor = '#857671';
+            body.style.color = '#b88645';
+            navLink.style.color = '#857671';
+        } else {
+            body.style.backgroundColor = '#857671';
+            body.style.color = '#333';
+            navLink.style.color = '#857671'; // Adjust link color in light theme
+        }
+    }
+
+        document.getElementById('themeSwitch').addEventListener('click', function(event) {
+        event.preventDefault();
+        toggleTheme();
+        });
+    </script>
                     </ul>
                 </div>
             </div>
@@ -91,6 +117,87 @@
                 </div>
             </div>
         </section>
+        <section>
+            <button id="openPopupBtn" class="popupBtn" style="background: none; border: none; padding: 0;">
+                <div class="intro-button mx-auto">
+                    <a class="btn btn-primary btn-xl" style="margin-left: 670px; margin-bottom: 20px;">See our catalog!</a>
+                </div>
+            </button>
+            
+            <div id="popupContainer" class="popup-container">
+                <h2>Popup Title</h2>
+                <img src="assets/img/1131w-7-tx2mXc9-o.webp" alt="" style="max-width: 60%; height: 40%;"> <br>
+                <div id="closePopupBtn"></div>
+            </div>
+            
+            <div id="overlay" class="overlay"></div>
+            
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const openPopupBtn = document.getElementById('openPopupBtn');
+                    const closePopupBtn = document.getElementById('closePopupBtn');
+                    const popupContainer = document.getElementById('popupContainer');
+                    const overlay = document.getElementById('overlay');
+            
+                    openPopupBtn.addEventListener('click', function() {
+                        popupContainer.classList.add('show');
+                        overlay.classList.add('show');
+                    });
+            
+                    closePopupBtn.addEventListener('click', function() {
+                        popupContainer.classList.remove('show');
+                        overlay.classList.remove('show');
+                    });
+            
+                    overlay.addEventListener('click', function() {
+                        popupContainer.classList.remove('show');
+                        overlay.classList.remove('show');
+                    });
+                });
+            </script>
+        
+            <style>
+                #openPopupBtn {
+                    color: white;
+                    padding: 10px;
+                    border: none;
+                }
+        
+                .popup-container {
+                    display: none;
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    width: auto;
+                    max-width: 90%;
+                    padding: 20px;
+                    color: black;
+                    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+                    z-index: 1000;
+                }
+        
+                .overlay {
+                    display: none;
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0, 0, 0, 0.5);
+                    z-index: 900;
+                }
+        
+                .popup-container.show {
+                    display: block;
+                }
+        
+                .overlay.show {
+                    display: block;
+                }
+            </style>
+        </section>
+        
         <section>
             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2876.8310493768895!2d18.42896017605198!3d43.859330371093066!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4758c8c9b3973227%3A0x2f4e081b0ba770dc!2sLuled%C5%BEina%202%2C%20Sarajevo%2071000!5e0!3m2!1sbs!2sba!4v1715437419624!5m2!1sbs!2sba" width="1535" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </section>
