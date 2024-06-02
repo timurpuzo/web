@@ -31,32 +31,6 @@
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="about.html">About Us</a></li>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="products.html">Products</a></li>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="store.html">Store</a></li>
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" id="themeSwitch" href="#">Switch Theme</a></li>
-                        
-    <script>
-            let darkMode = false;
-            function toggleTheme() {
-            const body = document.body;
-            const navLink = document.getElementById('themeSwitch');
-    
-            darkMode = !darkMode;
-    
-        if (darkMode) {
-            body.style.backgroundColor = '#857671';
-            body.style.color = '#b88645';
-            navLink.style.color = '#857671';
-        } else {
-            body.style.backgroundColor = '#857671';
-            body.style.color = '#333';
-            navLink.style.color = '#857671'; // Adjust link color in light theme
-        }
-    }
-
-        document.getElementById('themeSwitch').addEventListener('click', function(event) {
-        event.preventDefault();
-        toggleTheme();
-        });
-    </script>
                     </ul>
                 </div>
             </div>

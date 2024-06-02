@@ -7,13 +7,10 @@
     <meta name="author" content="" />
     <title>La Bascarsija</title>
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-    <!-- Google fonts-->
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet" />
-    <!-- Core theme CSS (includes Bootstrap)-->
     <link href="css/styles.css" rel="stylesheet" />
-    <!-- Toastr CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
     <style>
         .error {
             border: 2px solid red;
@@ -31,12 +28,90 @@
             font-size: 0.9em;
             margin-top: 5px;
         }
+        .toggle-checkbox {
+            display: none;
+        }
+        .toggle-label {
+            cursor: pointer;
+            padding: 10px;
+            background-color: #ddd;
+            border-radius: 4px;
+            display: inline-block;
+        }
+        .theme-switcher {
+            margin-top: 30px;
+        }
+        .dark-theme .bg-image {
+            background-color:#22110B !important;
+        }
+        .popup {
+            visibility: hidden;
+            min-width: 250px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 2px;
+            padding: 16px;
+            position: fixed;
+            z-index: 1;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .popup.show {
+            visibility: visible;
+            animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        }
+        .popup.success {
+            background-color: green;
+        }
+        .popup.error {
+            background-color: red;
+        }
+        @keyframes fadein {
+            from {bottom: 0; opacity: 0;} 
+            to {bottom: 30px; opacity: 1;}
+        }
+        @keyframes fadeout {
+            from {bottom: 30px; opacity: 1;} 
+            to {bottom: 0; opacity: 0;}
+        }
     </style>
 </head>
-
-<body>
+<body class="light-theme">
+    <div class="attr-nav">
+        <ul>
+            <li>
+                <div class="theme-switcher">
+                    <input type="checkbox" id="theme-toggle" class="toggle-checkbox">
+                    <label for="theme-toggle" class="toggle-label">Switch Theme</label>
+                </div>
+            </li>
+            <li class="side-menu"><a href="#"><i class="fa fa-bars"></i></a></li>
+        </ul>
+    </div>
     <div class="bg-image faq bg-faded p-5 rounded" style="width: 900px; align-items: center; justify-content: center; margin-left: 300px; margin-top: 20px;">
         <div class="container">
+            <style>
+                .container {
+                    margin: 20px;
+                }
+                button {
+                    margin-right: 10px;
+                    border-radius: 20px;
+                    background-color: #D2B48C;
+                    color: white;
+                    border: none;
+                    padding: 10px 20px;
+                }
+            </style>
+            <div class="container">
+                <p><strong>Customer Name:</strong> <span id="customerName">Timur</span></p>
+                <p><strong>Customer Surname:</strong> <span id="customerSurname">Puzo</span></p>
+                <button id="editBtn">Edit</button>
+                <button id="deleteBtn">Delete</button>
+            </div>
             <div class="row">
                 <div class="col-2"></div>
                 <div class="col-8 mt-5 text-center" id="form">
@@ -86,15 +161,40 @@
             </div>
         </div>
     </div>
+    <div id="popup" class="popup"></div>
 
-    <!-- jQuery -->
+    <div id="comments-container"></div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- jQuery Validation Plugin -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
-    <!-- Toastr JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script>
         $(document).ready(function () {
+            function showPopup(message, type) {
+                const popup = $('#popup');
+                popup.removeClass('success error').addClass(type).text(message).addClass('show');
+                setTimeout(function() {
+                    popup.removeClass('show');
+                }, 3000);
+            }
+
+            $('#editBtn').on('click', function () {
+                $('#firstName').val($('#customerName').text());
+                $('#lastName').val($('#customerSurname').text());
+            });
+
+            $('#deleteBtn').on('click', function () {
+                const confirmDelete = confirm("Are you sure you want to delete this customer?");
+                if (confirmDelete) {
+                    $('#contactForm')[0].reset();
+                    $('#firstName').val('');
+                    $('#lastName').val('');
+                    $('#customerName').text('');
+                    $('#customerSurname').text('');
+
+                    showPopup('Customer deleted successfully!', 'success');
+                }
+            });
+
             $('#contactForm').validate({
                 rules: {
                     firstName: 'required',
@@ -106,9 +206,6 @@
                     password: {
                         required: true,
                         minlength: 8
-                    },
-                    phone: {
-                        phoneUS: true
                     },
                     birthdate: {
                         required: true,
@@ -137,60 +234,46 @@
                     $(label).removeClass('error-message');
                     $(label).addClass('success-message');
                 },
-                submitHandler: function (form) {
-                    // Prevent default form submission
+                submitHandler: function (form, event) {
                     event.preventDefault();
 
-                    // Define the JSON data
-                    var jsonData = {
-                        name: "Timur",
-                        surname: "Puzo",
-                        password: "Fakultet123",
-                        email: "timur.puzo@stu.ibu.edu.ba",
-                        phone: "061 314 464",
-                        address: "Neka ulica",
-                        nation: "Bosnia and Herzegovina",
-                        dateOfBirth: "19/05/2004"
-                    };
+                    $('#customerName').text($('#firstName').val());
+                    $('#customerSurname').text($('#lastName').val());
 
-                    // AJAX call
-                    $.ajax({
-                        url: 'your-server-endpoint-url', // Replace with your server URL
-                        type: 'POST',
-                        contentType: 'application/json',
-                        data: JSON.stringify(jsonData),
-                        success: function (response) {
-                            toastr.success('Form submitted successfully!', 'Success');
-                        },
-                        error: function (error) {
-                            toastr.error('Error submitting the form. Please try again.', 'Error');
-                        }
-                    });
-                },
-                invalidHandler: function (event, validator) {
-                    toastr.error('Please correct the errors and try again.', 'Error');
+                    showPopup('Form submitted successfully!', 'success');
                 }
             });
 
-            $('#password').on('keyup', function () {
-                var strength = 0;
+            $("#theme-toggle").change(function () {
+                if (this.checked) {
+                    $("body").addClass("dark-theme");
+                    $("body").removeClass("light-theme");
+                    toastr.success('Dark theme activated');
+                } else {
+                    $("body").addClass("light-theme");
+                    $("body").removeClass("dark-theme");
+                    toastr.success('Light theme activated');
+                }
+            });
+
+            $('#password').on('input', function () {
                 var password = $(this).val();
-                var meter = $('#passwordStrength');
-                var regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+                var strength = 0;
 
-                if (regex.test(password)) {
+                if (password.length >= 8) {
+                    strength += 1;
+                }
+                if (password.match(/[A-z]/)) {
+                    strength += 1;
+                }
+                if (password.match(/[A-Z]/)) {
+                    strength += 1;
+                }
+                if (password.match(/\d/)) {
                     strength += 1;
                 }
 
-                if (password.length > 7) {
-                    strength += 1;
-                }
-
-                if (password.length > 12) {
-                    strength += 1;
-                }
-
-                meter.val(strength);
+                $('#passwordStrength').val(strength);
             });
         });
     </script>
