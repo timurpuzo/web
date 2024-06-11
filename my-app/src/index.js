@@ -30,4 +30,3 @@ root.render(
     </ThemeProvider>
   </React.StrictMode>
 );
-//chatgpt
